@@ -137,14 +137,6 @@ app.get('/me', ensureAuthorized, function(req, res) {
     });
 });
 
-app.get('/test', function(req,res){
-    User.findOne({token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfX3YiOjAsIl9pZCI6IjU1NTgxNTY5OWJjNTZjNzM1YWM4YjQxYSJ9.1B93o0ka-kxYWZaFGxNZSdDMN3qMLVYVQTuBu8KScY8"}
-        , function(err, user){
-        console.log(user);
-    }) 
-});
-
-
 // prevent crash
 process.on('uncaughtException', function(err) {
     console.log(err);
