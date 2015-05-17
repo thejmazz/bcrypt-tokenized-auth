@@ -2,7 +2,7 @@
 
 This repo is an example of how to use tokenized authentication with
 NodeJS(Express) and MongoDB. Passwords are protected with bcrypt. With regards
-to choosing bcrypt over pbkdf2, see these links:
+to choosing `bcrypt` over `pbkdf2`, see these links:
 
 This
 [comment](http://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage#comment26855_6415)
@@ -36,7 +36,6 @@ Some articles and tutorials I used:
 * [How To Safely Store A Password](http://codahale.com/how-to-safely-store-a-password/)
 * [Password Authentication with Mongoose (Part 1): bcrypt](http://devsmash.com/blog/password-authentication-with-mongoose-and-bcrypt)
 
-What we will NOT be using: [crypto.pbkdf2(password, salt, iterations, keylen[, digest], callback)](https://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2_password_salt_iterations_keylen_digest_callback)
+What we will NOT be using: [crypto.pbkdf2(...)](https://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2_password_salt_iterations_keylen_digest_callback)
 
-What we WILL be using:
-The NodeJS bcrypy module: [node.bcrypt.js](https://github.com/ncb000gt/node.bcrypt.js/)
+What we WILL be using: [node.bcrypt.js](https://github.com/ncb000gt/node.bcrypt.js/)
