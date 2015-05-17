@@ -1,14 +1,16 @@
 {
-    "name": "angular-restful-auth",
-    "version": "0.0.1",
-    "dependencies": {
-        "express": "4.x",
-        "body-parser": "~1.0.0",
-        "morgan": "latest",
-        "mongoose": "3.8.8",
-        "jsonwebtoken": "0.4.0"
-    },
-    "engines": {
-        "node": ">=0.10.0"
-    }
+  "name": "angular-restful-auth",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "bson": "^0.3.2",
+    "express": "4.x",
+    "jsonwebtoken": "0.4.0",
+    "merge-descriptors": "^1.0.0",
+    "mongoose": "3.8.8",
+    "morgan": "latest"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
 }
