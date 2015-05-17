@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "body-parser": "~1.0.0",
-    "bson": "^0.3.2",
     "express": "4.x",
     "jsonwebtoken": "0.4.0",
     "merge-descriptors": "^1.0.0",
