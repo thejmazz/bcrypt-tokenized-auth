@@ -46,9 +46,22 @@ angular.module('angularRestfulAuth')
             me: function(success, error) {
                 $http.get(baseUrl + '/me').success(success).error(error)
             },
-            logout: function(success) {
+            logout: function(success, error) {
                 changeUser({});
+
+                // page reloads before this finishes; does not work
+                //delete $localStorage.token;
+                
+                // instead, just reset
+                $localStorage.$reset();
+                
+                // you can use this method if you clone
+                // https://github.com/raynode/ngStorage
+                // but not on bower!
                 delete $localStorage.token;
+                $localStorage.$save();
+                
+                //error();
                 success();
             }
         };
