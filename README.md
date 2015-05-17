@@ -46,3 +46,7 @@ If you get the following error with `Mongoose`:
 Failed to load c++ bson extension, using pure JS version
 ```
 Try one of the answers [here](http://stackoverflow.com/questions/21656420/failed-to-load-c-bson-extension).
+For me I had to change `python=python3` to `python=python2` in my `~/.npmrc` (`node-gyp` requires Python 2.x, fails to `make` `bson` with 3.x). Or you can do:
+```
+$ npm config -g python=python2
+```
