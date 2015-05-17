@@ -40,3 +40,9 @@ Some articles and tutorials I used:
 What we will NOT be using: [crypto.pbkdf2(...)](https://nodejs.org/api/crypto.html#crypto_crypto_pbkdf2_password_salt_iterations_keylen_digest_callback)
 
 What we WILL be using: [node.bcrypt.js](https://github.com/ncb000gt/node.bcrypt.js/)
+
+If you get the following error with `Mongoose`:
+```
+Failed to load c++ bson extension, using pure JS version
+```
+Try one of the answers [here](http://stackoverflow.com/questions/21656420/failed-to-load-c-bson-extension).
