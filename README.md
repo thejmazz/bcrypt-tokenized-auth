@@ -26,10 +26,11 @@ Some other stackoverflow questions:
 * [nodejs password hashing bcrypt alternative using crypto](http://stackoverflow.com/a/22820185/1409233)
 * [Password Encryption: PBKDF2 (using sha512 x 1000) vs Bcrypt](http://stackoverflow.com/a/5531194/1409233)
 
-Further Wikipedia reading:
+Further reading:
 * [bcrypt](http://en.wikipedia.org/wiki/Bcrypt)
 * [key derivation function](http://en.wikipedia.org/wiki/Key_derivation_function)
 * [salt](http://en.wikipedia.org/wiki/Salt_(cryptography))
+* [the original bcrpyt paper](https://www.usenix.org/legacy/events/usenix99/provos/provos.pdf)
 
 Some articles and tutorials I used:
 * [Token-Based Authentication With AngularJS & NodeJS](http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543)
