@@ -1,7 +1,8 @@
 # tokenized auth + bcrypt
 
-This repo is an example of how to use tokenized authentication with
-NodeJS(Express) and MongoDB. Passwords are protected with [bcrypt](http://en.wikipedia.org/wiki/Bcrypt). 
+This repo is an example of how to use [tokenized authentication](http://stackoverflow.com/questions/1592534/what-is-token-based-authentication) 
+with
+[NodeJS](https://nodejs.org/) ([Express](http://expressjs.com/) and [MongoDB](https://www.mongodb.org/). Passwords are protected with [bcrypt](http://en.wikipedia.org/wiki/Bcrypt). 
 
 ### Install
 ```
@@ -48,14 +49,14 @@ Some other stackoverflow questions:
 * [nodejs password hashing bcrypt alternative using crypto](http://stackoverflow.com/a/22820185/1409233)
 * [Password Encryption: PBKDF2 (using sha512 x 1000) vs Bcrypt](http://stackoverflow.com/a/5531194/1409233)
 
+### Related Articles and Tutorials
+* [Token-Based Authentication With AngularJS & NodeJS](http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543)
+* [How To Safely Store A Password](http://codahale.com/how-to-safely-store-a-password/)
+* [Password Authentication with Mongoose (Part 1): bcrypt](http://devsmash.com/blog/password-authentication-with-mongoose-and-bcrypt)
+
 ### Further Reading
 * [key derivation function](http://en.wikipedia.org/wiki/Key_derivation_function)
 * [salt](http://en.wikipedia.org/wiki/Salt_(cryptography))
 * [hash function](http://en.wikipedia.org/wiki/Hash_function)
 * [cryptographic hash function](http://en.wikipedia.org/wiki/Cryptographic_hash_function)
 * [the original bcrpyt paper](https://www.usenix.org/legacy/events/usenix99/provos/provos.pdf)
-
-### Related Articles and Tutorials
-* [Token-Based Authentication With AngularJS & NodeJS](http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543)
-* [How To Safely Store A Password](http://codahale.com/how-to-safely-store-a-password/)
-* [Password Authentication with Mongoose (Part 1): bcrypt](http://devsmash.com/blog/password-authentication-with-mongoose-and-bcrypt)
