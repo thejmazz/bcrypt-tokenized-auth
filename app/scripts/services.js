@@ -11,7 +11,7 @@ angular.module('angularRestfulAuth')
     }
 })
 
-.factory('AuthService', ['$http', 'Session', function($http, Session) {
+.factory('AuthService', ['$http', '$localStorage', 'Session', function($http, $localStorage, Session) {
     var authService = {};
     var baseUrl = 'http://localhost:9001'
 
@@ -35,7 +35,7 @@ angular.module('angularRestfulAuth')
     }
 
     authService.isAuthenticated = function() {
-        return !!Session.token;
+        return !!Session.token || $localStorage.token;
     }
 
     authService.currentUser = function() {

@@ -4,9 +4,11 @@
 
 angular.module('angularRestfulAuth')
 
-.controller('AppCtrl', ['$scope', function($scope) {
+.controller('AppCtrl', ['$scope', '$localStorage', function($scope, $localStorage) {
     
-    $scope.currentUser = {
+    if ($localStorage.user) {
+        $scope.currentUser = $localStorage.user;
+    } else $scope.currentUser = {
         _id: null,
         email: null,
         password: null,
@@ -32,7 +34,7 @@ angular.module('angularRestfulAuth')
     }   
 }])
     
-.controller('HomeCtrl', ['$scope', '$location', 'AuthService', function($scope, $location, AuthService) {
+.controller('HomeCtrl', ['$scope', '$location', '$localStorage', 'AuthService', function($scope, $location, $localStorage, AuthService) {
     
     $scope.$watch( AuthService.isAuthenticated, function(isAuthenticated) {
         $scope.token = isAuthenticated;
@@ -44,9 +46,20 @@ angular.module('angularRestfulAuth')
             password: $scope.password
         };
 
+        var stayLogged = $scope.stayLogged;
+
         AuthService.login(formData).then(function(res) {
             if (res.data.type === true) {
                 $scope.setCurrentUser(res.data.data); 
+                if (stayLogged) {
+                    $localStorage.token = res.data.data.token;
+                    $localStorage.user = res.data.data;
+                    $localStorage.$save();
+                } else {
+                    delete $localStorage.token;
+                    delete $localStorage.user;
+                    $localStorage.$save(); 
+                }
                 $location.path('/me');
             } else {
                 alert('invalid password');
@@ -71,6 +84,9 @@ angular.module('angularRestfulAuth')
             if (!token) {
                 // Session successfully ended
                 $scope.setCurrentUser(null);
+                delete $localStorage.token;
+                delete $localStorage.user;
+                $localStorage.$save();
             }
         });
     }; 
