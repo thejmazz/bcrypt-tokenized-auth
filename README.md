@@ -2,7 +2,7 @@
 
 This repo is an example of how to use [tokenized authentication](http://stackoverflow.com/questions/1592534/what-is-token-based-authentication) 
 with
-[NodeJS](https://nodejs.org/) ([Express](http://expressjs.com/) and [MongoDB](https://www.mongodb.org/). Passwords are protected with [bcrypt](http://en.wikipedia.org/wiki/Bcrypt). 
+[NodeJS](https://nodejs.org/) ([Express])(http://expressjs.com/) and [MongoDB](https://www.mongodb.org/). Passwords are protected with [bcrypt](http://en.wikipedia.org/wiki/Bcrypt). 
 
 ### Install
 ```
