@@ -10,9 +10,6 @@ var mongoose = require('mongoose');
 var config = require('./config');
 var User = require('./models/User');
 
-// Private key
-var pkey = fs.readFileSync('./id_rsa');
-
 // Express
 var app = express();
 
@@ -62,37 +59,12 @@ app.post('/authenticate', function(req, res) {
                 }
             })
         }
-    });
-
-    /*
-    User.findOne({
-        email: req.body.email,
-        password: req.body.password
-    }, function(err, user) {
-        if (err) {
-            res.json({
-                type: false,
-                data: "Error occured: " + err
-            });
-        } else {
-            if (user) {
-                res.json({
-                    type: true,
-                    data: user,
-                    token: user.token
-                });
-            } else {
-                res.json({
-                    type: false,
-                    data: "Incorrect email/password"
-                });
-            }
-        }
-    });
-    */
+    }); 
 });
 
 // sign-in POST endpoint
+// odd naming: is really for sign-up
+// classic 'sign-in' is /authenticate
 app.post('/signin', function(req, res) {
     User.findOne({
         email: req.body.email
@@ -113,7 +85,7 @@ app.post('/signin', function(req, res) {
                 userModel.email = req.body.email;
                 userModel.password = req.body.password;
                 userModel.save(function(err, user) {
-                    user.token = jwt.sign(user,pkey);
+                    user.token = jwt.sign(user, user.password);
                     user.save(function(err, user1) {
                         res.json({
                             type: true,
