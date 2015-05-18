@@ -1,5 +1,5 @@
 {
-  "name": "angular-restful-auth",
+  "name": "backend",
   "version": "0.0.1",
   "dependencies": {
     "bcrypt": "^0.8.3",
