@@ -13,7 +13,6 @@ var User = require('./models/User');
 // Private key
 var pkey = fs.readFileSync('./id_rsa');
 
-
 // Express
 var app = express();
 
@@ -39,6 +38,33 @@ app.use(function(req, res, next) {
 
 // Authentication POST endpoint
 app.post('/authenticate', function(req, res) {
+    User.findOne({email: req.body.email}, function(err, user){
+        if (err) {
+            res.json({
+                type: false,
+                data: 'Error occured: ' + err
+            });
+        } else {
+            user.comparePassword(req.body.password, function(err, isMatch) {
+                if (err) throw err;
+
+                if (isMatch) {
+                    res.json({
+                        type: true,
+                        data: user,
+                        token: user.token
+                    })
+                } else {
+                    res.json({
+                        type: false,
+                        data: 'Incorrect email/password'
+                    })
+                }
+            })
+        }
+    });
+
+    /*
     User.findOne({
         email: req.body.email,
         password: req.body.password
@@ -63,13 +89,13 @@ app.post('/authenticate', function(req, res) {
             }
         }
     });
+    */
 });
 
 // sign-in POST endpoint
 app.post('/signin', function(req, res) {
     User.findOne({
-        email: req.body.email,
-        password: req.body.password
+        email: req.body.email
     }, function(err, user) {
         if (err) {
             res.json({

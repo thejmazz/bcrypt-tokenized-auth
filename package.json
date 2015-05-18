@@ -2,6 +2,7 @@
   "name": "angular-restful-auth",
   "version": "0.0.1",
   "dependencies": {
+    "bcrypt": "^0.8.3",
     "body-parser": "~1.0.0",
     "express": "4.x",
     "jsonwebtoken": "0.4.0",
