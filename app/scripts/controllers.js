@@ -3,72 +3,75 @@
 /* Controllers */
 
 angular.module('angularRestfulAuth')
-    .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main',
-        function($rootScope, $scope, $location, $localStorage, Main) {
 
-            $scope.signin = function() {
-                var formData = {
-                    email: $scope.email,
-                    password: $scope.password
-                }
+.controller('AppCtrl', ['$scope', function($scope) {
+    
+    $scope.currentUser = {
+        _id: null,
+        email: null,
+        password: null,
+        token: null
+    };
 
-                Main.signin(formData, function(res) {
-                    if (res.type == false) {
-                        alert(res.data)
-                    } else {
-                        $localStorage.token = res.data.token;
-                        window.location = "/";
-                    }
-                }, function() {
-                    $rootScope.error = 'Failed to signin';
-                })
+    $scope.setCurrentUser = function(user) {
+        if (!user) {
+            $scope.currentUser = {
+                _id: null,
+                email: null,
+                password: null,
+                token: null
             };
-
-            $scope.signup = function() {
-                var formData = {
-                    email: $scope.email,
-                    password: $scope.password
-                }
-
-                Main.save(formData, function(res) {
-                    if (res.type == false) {
-                        alert(res.data)
-                    } else {
-                        $localStorage.token = res.data.token;
-                        window.location = "/"
-                    }
-                }, function() {
-                    $rootScope.error = 'Failed to signup';
-                })
-            };
-
-            $scope.me = function() {
-                Main.me(function(res) {
-                    $scope.myDetails = res;
-                }, function() {
-                    $rootScope.error =
-                        'Failed to fetch details';
-                })
-            };
-
-            $scope.logout = function() {
-                Main.logout(function() {
-                    window.location = "/"
-                }, function() {
-                    alert("Failed to logout!");
-                });
-            };
-            $scope.token = $localStorage.token;
+        } else {
+            $scope.currentUser = {
+                _id: user._id,
+                email: user.email,
+                password: user.password,
+                token: user.token
+            }
         }
-    ])
+    }   
+}])
+    
+.controller('HomeCtrl', ['$scope', '$location', 'AuthService', function($scope, $location, AuthService) {
+    
+    $scope.$watch( AuthService.isAuthenticated, function(isAuthenticated) {
+        $scope.token = isAuthenticated;
+    });
 
-.controller('MeCtrl', ['$rootScope', '$scope', '$location', 'Main',
-    function($rootScope, $scope, $location, Main) {
+    $scope.signin = function() {
+        var formData = {
+            email: $scope.email,
+            password: $scope.password
+        };
 
-        Main.me(function(res) {
-            $scope.myDetails = res;
-        }, function() {
-            $rootScope.error = 'Failed to fetch details';
+        AuthService.login(formData).then(function(res) {
+            if (res.data.type === true) {
+                $scope.setCurrentUser(res.data.data); 
+                $location.path('/me');
+            } else {
+                alert('invalid password');
+            }
+        });    
+    };
+
+    $scope.signup = function() {
+        var formData = {
+            email: $scope.email,
+            password: $scope.password
+        }
+
+        AuthService.save(formData).then(function(res) {
+            $scope.setCurrentUser(res.data.data);
+            $location.path('/me');
         })
-    }
-]);
+    };
+
+    $scope.logout = function() {
+        AuthService.logout(function(token){
+            if (!token) {
+                // Session successfully ended
+                $scope.setCurrentUser(null);
+            }
+        });
+    }; 
+}]);
