@@ -5,40 +5,31 @@
 angular.module('angularRestfulAuth')
 
 .controller('AppCtrl', ['$scope', '$localStorage', function($scope, $localStorage) {
-    
     if ($localStorage.user) {
         $scope.currentUser = $localStorage.user;
-    } else $scope.currentUser = {
-        _id: null,
-        email: null,
-        password: null,
-        token: null
     };
-
+    
     $scope.setCurrentUser = function(user) {
         if (!user) {
-            $scope.currentUser = {
-                _id: null,
-                email: null,
-                password: null,
-                token: null
-            };
+            $scope.currentUser = null;
         } else {
             $scope.currentUser = {
                 _id: user._id,
                 email: user.email,
                 password: user.password,
                 token: user.token
-            }
+            };
         }
     }   
-}])
-    
+    }])
+
 .controller('HomeCtrl', ['$scope', '$location', '$localStorage', 'AuthService', function($scope, $location, $localStorage, AuthService) {
     
     $scope.$watch( AuthService.isAuthenticated, function(isAuthenticated) {
         $scope.token = isAuthenticated;
     });
+
+    $scope.invalidPassword = false;
 
     $scope.signin = function() {
         var formData = {
@@ -50,7 +41,6 @@ angular.module('angularRestfulAuth')
 
         AuthService.login(formData).then(function(res) {
             if (res.data.type === true) {
-                $scope.setCurrentUser(res.data.data); 
                 if (stayLogged) {
                     $localStorage.token = res.data.data.token;
                     $localStorage.user = res.data.data;
@@ -62,7 +52,7 @@ angular.module('angularRestfulAuth')
                 }
                 $location.path('/me');
             } else {
-                alert('invalid password');
+                $scope.invalidPassword = true;
             }
         });    
     };
@@ -90,4 +80,16 @@ angular.module('angularRestfulAuth')
             }
         });
     }; 
+}])
+
+.controller('MeCtrl', ['$scope', 'AuthService', 'UserDataService', function($scope, AuthService, UserDataService) {
+    if (!$scope.currentUser) {
+        var userInfoPromise = UserDataService.getUserInfo();
+
+        userInfoPromise.then(function(res) {
+            $scope.setCurrentUser(res.data); 
+        }, function(err) {
+            console.log(err);
+        });    
+    } 
 }]);

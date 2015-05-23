@@ -9,6 +9,9 @@ angular.module('angularRestfulAuth')
     this.destroy = function() {
         this.token = null;
     }
+    this.getToken = function() {
+        return this.token;
+    }
 })
 
 .factory('AuthService', ['$http', '$localStorage', 'Session', function($http, $localStorage, Session) {
@@ -16,7 +19,7 @@ angular.module('angularRestfulAuth')
     var baseUrl = 'http://localhost:9001'
 
     authService.save = function(data) {
-        return $http.post(baseUrl + '/signin', data).then(function(res) {
+        return $http.post(baseUrl + '/signup', data).then(function(res) {
             if (res.type === false) {
                 alert(res);
             }
@@ -39,6 +42,7 @@ angular.module('angularRestfulAuth')
     }
 
     authService.currentUser = function() {
+        //return Session.getToken();
         return Session.token;
     }
 
@@ -48,4 +52,40 @@ angular.module('angularRestfulAuth')
     };
 
     return authService;
+}])
+
+.factory('UserDataService', ['$http', '$q', 'Session', 'AuthService', function($http, $q, Session, AuthService) {
+    var userDataService = {};
+    var baseUrl = 'http://localhost:9001';
+
+    userDataService.getUserInfo = function() {
+        var req = {
+            method: 'GET',
+            url: baseUrl + '/me',
+            headers: {
+                Authorization: 'Bearer ' + AuthService.currentUser()
+            }
+        };
+
+        var response = {};
+        var defer = $q.defer();
+
+        $http(req).success(function(data, status, headers, config) { 
+            response = {
+                success: true,
+                userData: data
+            };
+            defer.resolve(data);
+        }).error(function(data, status, headers, config) {
+            response =  {
+                success: false,
+                userData: null
+            };
+            defer.resolve(data);
+        });
+
+        return defer.promise;
+    };
+
+    return userDataService;
 }])

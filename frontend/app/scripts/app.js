@@ -24,14 +24,14 @@ angular.module('angularRestfulAuth', ['ngStorage', 'ngRoute', 'angular-loading-b
             redirectTo: '/'
         });
 
-        $httpProvider.interceptors.push(['$q', '$location', '$localStorage',
-            function($q, $location, $localStorage) {
+        /*$httpProvider.interceptors.push(['$q', '$location', '$localStorage', 'AuthService',
+            function($q, $location, $localStorage, AuthService) {
                 return {
                     'request': function(config) {
                         config.headers = config.headers || {};
-                        if ($localStorage.token) {
-                            config.headers.Authorization = 'Bearer ' + $localStorage.token;
-                        }
+                        if (AuthService.isAuthenticated()) {
+                            config.headers.Authorization = 'Bearer ' + AuthService.currentUser();
+                        } 
                         return config;
                     },
                     'responseError': function(response) {
@@ -42,5 +42,5 @@ angular.module('angularRestfulAuth', ['ngStorage', 'ngRoute', 'angular-loading-b
                     }
                 };
             }
-        ]);
+        ]);*/
     }]);
