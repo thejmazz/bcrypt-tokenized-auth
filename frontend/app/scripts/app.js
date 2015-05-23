@@ -22,25 +22,5 @@ angular.module('angularRestfulAuth', ['ngStorage', 'ngRoute', 'angular-loading-b
         }).
         otherwise({
             redirectTo: '/'
-        });
-
-        /*$httpProvider.interceptors.push(['$q', '$location', '$localStorage', 'AuthService',
-            function($q, $location, $localStorage, AuthService) {
-                return {
-                    'request': function(config) {
-                        config.headers = config.headers || {};
-                        if (AuthService.isAuthenticated()) {
-                            config.headers.Authorization = 'Bearer ' + AuthService.currentUser();
-                        } 
-                        return config;
-                    },
-                    'responseError': function(response) {
-                        if (response.status === 401 || response.status === 403) {
-                            $location.path('/signin');
-                        }
-                        return $q.reject(response);
-                    }
-                };
-            }
-        ]);*/
+        }); 
     }]);
